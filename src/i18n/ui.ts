@@ -60,7 +60,7 @@ export const ui: Record<Lang, Dictionary> = {
       home: {
         title: 'Nicolás Andrade — Software Engineer',
         description:
-          'Software Engineer full stack en Rosario, Argentina. Construyo productos SaaS B2B de punta a punta con React, TypeScript, Node.js y Go.',
+          'Software Engineer full stack en Rosario, Argentina. Construyo productos web, SaaS B2B y B2C de punta a punta con React, TypeScript, Node.js y Go.',
       },
       experience: {
         title: 'Experiencia — Nicolás Andrade',
@@ -79,7 +79,7 @@ export const ui: Record<Lang, Dictionary> = {
     theme: 'Cambiar tema',
     switchLang: 'Read in English',
     hero: {
-      tagline: 'Construyo productos SaaS B2B de punta a punta: de la interfaz en React a las APIs en Node.js y Go.',
+      tagline: 'Construyo productos web, SaaS B2B y B2C de punta a punta: de la interfaz en React a las APIs en Node.js y Go.',
       downloadCv: 'Descargar CV',
       viewProjects: 'Ver proyectos',
       scroll: 'Scroll',
@@ -141,7 +141,7 @@ export const ui: Record<Lang, Dictionary> = {
       home: {
         title: 'Nicolás Andrade — Software Engineer',
         description:
-          'Full-stack Software Engineer based in Rosario, Argentina. I build B2B SaaS products end to end with React, TypeScript, Node.js and Go.',
+          'Full-stack Software Engineer based in Rosario, Argentina. I build web products, B2B and B2C SaaS, end to end with React, TypeScript, Node.js and Go.',
       },
       experience: {
         title: 'Experience — Nicolás Andrade',
@@ -160,7 +160,7 @@ export const ui: Record<Lang, Dictionary> = {
     theme: 'Toggle theme',
     switchLang: 'Leer en español',
     hero: {
-      tagline: 'I build B2B SaaS products end to end: from the React interface to the APIs in Node.js and Go.',
+      tagline: 'I build web products, B2B and B2C SaaS, end to end: from the React interface to the APIs in Node.js and Go.',
       downloadCv: 'Download CV',
       viewProjects: 'View projects',
       scroll: 'Scroll',

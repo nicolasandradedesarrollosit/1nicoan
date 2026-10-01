@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import Monogram from './Monogram.astro';
+import { SITE } from '../../config/site';
+import { PORTRAIT } from '../../data/profile';
+
+/** Photo of the author, or a generated placeholder (dot grid + monogram) while there is none. */
+interface Props {
+  /** Rendered size, for the responsive `sizes` attribute. */
+  sizes: string;
+  class?: string;
+}
+const { sizes, class: className } = Astro.props;
+---
+
+<div class:list={['relative aspect-square overflow-hidden rounded-xl border border-line bg-surface', className]}>
+  {
+    PORTRAIT ? (
+      <Image src={PORTRAIT} alt={SITE.name} widths={[160, 320, 480]} sizes={sizes} class="size-full object-cover" />
+    ) : (
+      <div class="grid size-full place-items-center" aria-hidden="true">
+        <div class="dots [mask-image:none]" />
+        <Monogram class="relative w-1/2 text-muted" />
+      </div>
+    )
+  }
+</div>

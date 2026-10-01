@@ -1,4 +1,13 @@
+import type { ImageMetadata } from 'astro';
 import type { Localized } from '../config/site';
+
+/**
+ * Photo of the profile bento: `src/assets/portrait.{jpg,jpeg,png,webp,avif}`. Picked up
+ * by name, so the site builds without it and draws a placeholder instead.
+ */
+export const PORTRAIT: ImageMetadata | undefined = Object.values(
+  import.meta.glob<{ default: ImageMetadata }>('../assets/portrait.{jpg,jpeg,png,webp,avif}', { eager: true }),
+)[0]?.default;
 
 /** Stat tiles of the profile bento. `percent` draws a ring and counts up to it. */
 export const FACTS: { value: string; percent?: number; label: Localized }[] = [

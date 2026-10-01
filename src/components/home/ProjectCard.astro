@@ -1,0 +1,59 @@
+---
+import Icon from '../ui/Icon.astro';
+import ProjectVisual from '../ui/ProjectVisual.astro';
+import type { Lang } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localizedPath } from '../../i18n/routes';
+import type { Project } from '../../lib/projects';
+
+interface Props {
+  project: Project;
+  lang: Lang;
+  number: string;
+  /** Full-width layout: visual on the left, text on the right. */
+  featured?: boolean;
+}
+const { project, lang, number, featured = false } = Astro.props;
+const { data } = project;
+const t = ui[lang].projects;
+---
+
+<a
+  href={localizedPath(lang, 'project', project.id)}
+  class:list={['card group p-4', featured && 'grid items-center gap-x-8 gap-y-4 lg:grid-cols-[1.35fr_1fr]']}
+  data-spotlight
+  data-tilt
+  data-stack={data.stack.join('|')}
+>
+  <ProjectVisual
+    project={project}
+    lang={lang}
+    number={number}
+    class="aspect-[16/10]"
+    sizes={featured ? '(min-width: 1024px) 38rem, 100vw' : '(min-width: 640px) 22rem, 100vw'}
+  />
+
+  <div class:list={['px-2 pb-2', featured ? 'lg:pr-6' : 'pt-5']}>
+    <p class="label flex items-center gap-2 text-[0.625rem]">
+      {featured && <span class="text-accent">{t.featured}</span>}
+      {featured && <span>·</span>}
+      {data.role[lang]} · {data.year}
+    </p>
+    <h3
+      class:list={['mt-3 font-semibold', featured ? 'text-2xl sm:text-3xl' : 'text-lg']}
+      transition:name={`project-title-${project.id}`}
+    >
+      {data.title}
+    </h3>
+    <p class="mt-2 text-sm text-muted">{data.summary[lang]}</p>
+
+    <ul role="list" class="mt-4 flex flex-wrap gap-1.5">
+      {data.stack.map((tech) => <li class="chip">{tech}</li>)}
+    </ul>
+
+    <p class="link mt-5">
+      {t.view}
+      <Icon name="arrow-right" />
+    </p>
+  </div>
+</a>

@@ -1,0 +1,91 @@
+---
+import LangSwitch from './LangSwitch.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import Icon from '../ui/Icon.astro';
+import Monogram from '../ui/Monogram.astro';
+import { SECTIONS, SITE, type Lang, type SectionId } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localizedPath, sectionPath, type PageRoute } from '../../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  route?: PageRoute;
+}
+const { lang, route } = Astro.props;
+const t = ui[lang];
+
+// On inner pages the link of the matching section stays highlighted; on the home
+// page the scroll-spy (lib/motion/scroll.ts) moves the highlight as you scroll.
+const activeSection: SectionId | undefined =
+  route?.id === 'experience' ? 'experience' : route?.id === 'projects' || route?.id === 'project' ? 'projects' : undefined;
+---
+
+<header class="sticky top-0 z-30 border-b border-line bg-bg/80 backdrop-blur">
+  <div class="wrap flex h-14 items-center justify-between gap-4">
+    <a href={localizedPath(lang)} class="flex items-center gap-2.5 text-fg no-underline" aria-label={SITE.name}>
+      <Monogram class="w-7" />
+      <span class="hidden text-sm font-medium lg:inline">{SITE.name}</span>
+    </a>
+
+    <nav aria-label={t.navLabel} class="hidden md:block">
+      <ul role="list" class="flex gap-6">
+        {
+          SECTIONS.map((id) => (
+            <li>
+              <a
+                href={sectionPath(lang, id)}
+                class="nav-link"
+                data-spy={id}
+                aria-current={activeSection === id ? 'true' : undefined}
+              >
+                {t.nav[id]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-1">
+      <button type="button" class="chip mr-1 hidden py-1 sm:inline-flex" data-palette-open>
+        <Icon name="search" />
+        {t.palette.open}
+        <kbd>⌘K</kbd>
+      </button>
+      <LangSwitch lang={lang} route={route} />
+      <ThemeToggle label={t.theme} />
+      <button
+        type="button"
+        class="icon-btn md:hidden"
+        data-menu-toggle
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label={t.menu}
+      >
+        <Icon name="menu" class="size-[1.15rem]" />
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-menu" class="border-t border-line md:hidden" aria-label={t.navLabel} hidden>
+    <ul role="list" class="wrap grid py-3">
+      {
+        SECTIONS.map((id) => (
+          <li>
+            <a href={sectionPath(lang, id)} class="block py-2.5 text-fg no-underline">
+              {t.nav[id]}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <button type="button" class="flex items-center gap-2 py-2.5 text-muted" data-palette-open>
+          <Icon name="search" />
+          {t.palette.open}
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <span class="progress" aria-hidden="true"></span>
+</header>

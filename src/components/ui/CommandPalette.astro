@@ -1,0 +1,95 @@
+---
+import Icon, { type IconName } from './Icon.astro';
+import { LOCALE_META, SECTIONS, SITE, type Lang } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localizedPath, otherLang, sectionPath, type PageRoute } from '../../i18n/routes';
+
+/**
+ * Cmd/Ctrl+K palette. Items are ordinary links and buttons with the same data
+ * attributes used elsewhere, so lib/client.ts handles them; lib/palette.ts only
+ * opens, filters and moves the selection.
+ */
+interface Props {
+  lang: Lang;
+  route?: PageRoute;
+}
+const { lang, route } = Astro.props;
+const t = ui[lang];
+const target = otherLang(lang);
+
+const pages: { href: string; label: string; icon: IconName }[] = [
+  { href: localizedPath(lang), label: t.palette.home, icon: 'arrow-right' },
+  { href: localizedPath(lang, 'experience'), label: t.experience.pageTitle, icon: 'arrow-right' },
+  { href: localizedPath(lang, 'projects'), label: t.projects.pageTitle, icon: 'arrow-right' },
+];
+---
+
+<dialog class="palette" data-palette aria-label={t.palette.open}>
+  <div class="flex items-center gap-3 border-b border-line px-4">
+    <Icon name="search" class="size-4 text-muted" />
+    <input
+      type="text"
+      class="h-12 w-full bg-transparent text-sm outline-none placeholder:text-muted"
+      placeholder={t.palette.placeholder}
+      aria-label={t.palette.placeholder}
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <kbd>esc</kbd>
+  </div>
+
+  <div class="max-h-[50vh] overflow-y-auto p-2">
+    <div data-palette-group>
+      <p class="label px-3 pt-2 pb-1 text-[0.625rem]">{t.palette.pages}</p>
+      {
+        pages.map((page) => (
+          <a class="palette__item" href={page.href} data-palette-item>
+            <Icon name={page.icon} class="size-4 text-muted" />
+            {page.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div data-palette-group>
+      <p class="label px-3 pt-3 pb-1 text-[0.625rem]">{t.palette.sections}</p>
+      {
+        SECTIONS.map((id) => (
+          <a class="palette__item" href={sectionPath(lang, id)} data-palette-item>
+            <span class="w-4 text-center font-mono text-xs text-muted">#</span>
+            {t.nav[id]}
+          </a>
+        ))
+      }
+    </div>
+
+    <div data-palette-group>
+      <p class="label px-3 pt-3 pb-1 text-[0.625rem]">{t.palette.actions}</p>
+      <button type="button" class="palette__item" data-palette-item data-theme-toggle>
+        <Icon name="sun" class="size-4 text-muted" />
+        {t.theme}
+      </button>
+      <a
+        class="palette__item"
+        href={localizedPath(target, route?.id, route?.slug)}
+        lang={LOCALE_META[target].htmlLang}
+        data-palette-item
+        data-lang-switch
+        data-astro-reload
+      >
+        <span class="w-4 text-center font-mono text-[0.625rem] text-muted">{LOCALE_META[target].label}</span>
+        {t.switchLang}
+      </a>
+      <a class="palette__item" href={SITE.cv[lang]} download data-astro-reload data-palette-item>
+        <Icon name="download" class="size-4 text-muted" />
+        {t.hero.downloadCv}
+      </a>
+      <button type="button" class="palette__item" data-palette-item data-copy={SITE.email}>
+        <Icon name="copy" class="size-4 text-muted" />
+        {t.contact.copy}
+      </button>
+    </div>
+
+    <p class="px-3 py-6 text-center text-sm text-muted" data-palette-empty hidden>{t.palette.empty}</p>
+  </div>
+</dialog>

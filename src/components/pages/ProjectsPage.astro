@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../home/ProjectCard.astro';
+import PageHeader from '../ui/PageHeader.astro';
+import type { Lang } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localizedPath } from '../../i18n/routes';
+import { getProjects, projectNumber } from '../../lib/projects';
+import { breadcrumbLd } from '../../lib/seo';
+
+/** Every project, filterable by technology (lib/client.ts, `data-filter`). */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const path = localizedPath(lang, 'projects');
+
+const projects = await getProjects();
+const technologies = [...new Set(projects.flatMap((project) => project.data.stack))].sort();
+---
+
+<BaseLayout
+  lang={lang}
+  route={{ id: 'projects' }}
+  seo={t.meta.projects}
+  jsonLd={[breadcrumbLd(lang, { name: t.projects.pageTitle, href: path })]}
+>
+  <PageHeader
+    back={{ href: localizedPath(lang), label: t.palette.home }}
+    kicker={`/ ${t.nav.projects.toLowerCase()}`}
+    title={t.projects.pageTitle}
+    lead={t.projects.pageLead}
+  />
+
+  <section class="wrap" aria-label={t.projects.pageTitle}>
+    <div class="mb-8 flex flex-wrap gap-1.5" role="group" aria-label={t.projects.filterLabel}>
+      <button type="button" class="chip" data-filter="" aria-pressed="true">{t.projects.filterAll}</button>
+      {
+        technologies.map((tech) => (
+          <button type="button" class="chip" data-filter={tech} aria-pressed="false">
+            {tech}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+      {projects.map((project, i) => <ProjectCard project={project} number={projectNumber(i)} lang={lang} />)}
+    </div>
+  </section>
+</BaseLayout>

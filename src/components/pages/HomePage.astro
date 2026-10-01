@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../home/Hero.astro';
+import About from '../home/About.astro';
+import Experience from '../home/Experience.astro';
+import Projects from '../home/Projects.astro';
+import Skills from '../home/Skills.astro';
+import Contact from '../home/Contact.astro';
+import EducationCards from '../ui/EducationCards.astro';
+import Marquee from '../ui/Marquee.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { SECTIONS, type Lang, type SectionId } from '../../config/site';
+import { SKILLS } from '../../data/skills';
+import { ui } from '../../i18n/ui';
+
+/** The home page; each locale route renders it with its `lang`. */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+
+/** "02 / experiencia": position in SECTIONS + localized name. */
+const kicker = (id: SectionId) =>
+  `${String(SECTIONS.indexOf(id) + 1).padStart(2, '0')} / ${t.nav[id].toLowerCase()}`;
+---
+
+<BaseLayout lang={lang} route={{ id: 'home' }} seo={t.meta.home}>
+  <Hero lang={lang} />
+  <Marquee items={SKILLS.flatMap((group) => group.items)} />
+  <About lang={lang} kicker={kicker('about')} />
+  <Experience lang={lang} kicker={kicker('experience')} />
+  <Projects lang={lang} kicker={kicker('projects')} />
+  <Skills lang={lang} kicker={kicker('stack')} />
+  <section class="wrap section" aria-labelledby="education-title">
+    <SectionHeading id="education" kicker={`/ ${t.education.title.toLowerCase()}`} title={t.education.title} />
+    <EducationCards lang={lang} />
+  </section>
+  <Contact lang={lang} kicker={kicker('contact')} />
+</BaseLayout>

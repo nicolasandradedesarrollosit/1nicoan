@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../../config/site';
+---
+
+<ul role="list" class="flex items-center gap-1">
+  <li>
+    <a class="icon-btn" href={SITE.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+      <Icon name="github" class="size-[1.15rem]" />
+    </a>
+  </li>
+  <li>
+    <a class="icon-btn" href={SITE.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      <Icon name="linkedin" class="size-[1.15rem]" />
+    </a>
+  </li>
+  <li>
+    <a class="icon-btn" href={`mailto:${SITE.email}`} aria-label="Email">
+      <Icon name="mail" class="size-[1.15rem]" />
+    </a>
+  </li>
+</ul>

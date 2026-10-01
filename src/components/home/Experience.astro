@@ -1,0 +1,24 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import Timeline from '../ui/Timeline.astro';
+import type { Lang } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localizedPath } from '../../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  kicker: string;
+}
+const { lang, kicker } = Astro.props;
+const t = ui[lang].experience;
+---
+
+<section id="experience" class="wrap section" aria-labelledby="experience-title" data-section>
+  <SectionHeading
+    id="experience"
+    kicker={kicker}
+    title={t.title}
+    more={{ href: localizedPath(lang, 'experience'), label: t.more }}
+  />
+  <Timeline lang={lang} />
+</section>

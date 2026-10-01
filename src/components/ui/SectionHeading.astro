@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  /** Id of the section it titles; the heading itself gets `${id}-title`. */
+  id: string;
+  /** Mono line above the title, e.g. "02 / experiencia". */
+  kicker: string;
+  title: string;
+  /** Optional link on the right ("View all"). */
+  more?: { href: string; label: string };
+}
+const { id, kicker, title, more } = Astro.props;
+---
+
+<div class="mb-10 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+  <div>
+    <p class="kicker">{kicker}</p>
+    <h2 id={`${id}-title`} class="title mt-3">{title}</h2>
+  </div>
+  {
+    more && (
+      <a class="link" href={more.href}>
+        {more.label}
+        <Icon name="arrow-right" />
+      </a>
+    )
+  }
+</div>

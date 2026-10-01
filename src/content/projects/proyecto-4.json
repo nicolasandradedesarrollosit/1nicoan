@@ -1,0 +1,24 @@
+{
+  "title": "Lorem ipsum 4",
+  "summary": {
+    "es": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  },
+  "role": { "es": "Lorem ipsum", "en": "Lorem ipsum" },
+  "year": "2026",
+  "problem": {
+    "es": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  "solution": {
+    "es": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "en": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  "results": [
+    { "es": "Lorem ipsum dolor sit amet.", "en": "Lorem ipsum dolor sit amet." },
+    { "es": "Consectetur adipiscing elit.", "en": "Consectetur adipiscing elit." }
+  ],
+  "stack": ["Lorem", "Ipsum", "Dolor"],
+  "featured": false,
+  "order": 4
+}

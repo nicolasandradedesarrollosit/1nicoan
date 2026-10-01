@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+import type { Lang } from '../../config/site';
+import { EDUCATION } from '../../data/education';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<ul role="list" class="grid gap-4 md:grid-cols-3" data-stagger>
+  {
+    EDUCATION.map((item) => (
+      <li class="card flex flex-col gap-6">
+        <p class="label flex items-center justify-between gap-3 normal-case">
+          {item.period[lang]}
+          <Icon name="cap" class="size-4" />
+        </p>
+        <div>
+          <h3 class="font-semibold">{item.title[lang]}</h3>
+          <p class="mt-1 text-sm text-muted">{item.place[lang]}</p>
+        </div>
+      </li>
+    ))
+  }
+</ul>

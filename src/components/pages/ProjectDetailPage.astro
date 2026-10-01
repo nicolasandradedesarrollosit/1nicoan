@@ -1,0 +1,161 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../ui/Icon.astro';
+import PageHeader from '../ui/PageHeader.astro';
+import ProjectVisual from '../ui/ProjectVisual.astro';
+import type { Lang } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localizedPath } from '../../i18n/routes';
+import { projectNumber, type Project } from '../../lib/projects';
+import { breadcrumbLd } from '../../lib/seo';
+
+/** Case study of one project: visual, problem → solution, results, stack, links. */
+interface Props {
+  lang: Lang;
+  project: Project;
+  index: number;
+  previous?: Project;
+  next?: Project;
+}
+const { lang, project, index, previous, next } = Astro.props;
+const { data } = project;
+const t = ui[lang].projects;
+const path = localizedPath(lang, 'project', project.id);
+const listPath = localizedPath(lang, 'projects');
+---
+
+<BaseLayout
+  lang={lang}
+  route={{ id: 'project', slug: project.id }}
+  seo={{ title: `${data.title} — ${ui[lang].meta.projects.title}`, description: data.summary[lang] }}
+  jsonLd={[breadcrumbLd(lang, { name: t.pageTitle, href: listPath }, { name: data.title, href: path })]}
+>
+  <PageHeader
+    back={{ href: listPath, label: t.pageTitle }}
+    kicker={`${projectNumber(index)} / ${data.role[lang]} · ${data.year}`}
+    title={data.title}
+    lead={data.summary[lang]}
+    titleTransition={`project-title-${project.id}`}
+  >
+    {
+      (data.demo || data.repo) && (
+        <div class="fade-up mt-8 flex flex-wrap gap-3" style="--d:300ms">
+          {data.demo && (
+            <a class="btn" href={data.demo} target="_blank" rel="noopener noreferrer">
+              {t.demo}
+              <Icon name="arrow-up-right" />
+            </a>
+          )}
+          {data.repo && (
+            <a class="btn btn--ghost" href={data.repo} target="_blank" rel="noopener noreferrer">
+              {t.repo}
+              <Icon name="arrow-up-right" />
+            </a>
+          )}
+        </div>
+      )
+    }
+  </PageHeader>
+
+  <article class="wrap">
+    <ProjectVisual
+      project={project}
+      lang={lang}
+      number={projectNumber(index)}
+      class="aspect-[16/9]"
+      sizes="(min-width: 1120px) 66rem, 100vw"
+      priority
+    />
+
+    <div class="mt-12 grid gap-x-12 gap-y-10 lg:grid-cols-[1fr_18rem]">
+      <div class="grid gap-10 sm:grid-cols-2" data-stagger>
+        <section>
+          <h2 class="label">{t.problem}</h2>
+          <p class="mt-3 text-lg">{data.problem[lang]}</p>
+        </section>
+        <section>
+          <h2 class="label">{t.solution}</h2>
+          <p class="mt-3 text-lg">{data.solution[lang]}</p>
+        </section>
+        {
+          data.results.length > 0 && (
+            <section class="sm:col-span-2">
+              <h2 class="label">{t.results}</h2>
+              <ul role="list" class="mt-4 grid gap-3 sm:grid-cols-2">
+                {data.results.map((result) => (
+                  <li class="card py-4">{result[lang]}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </div>
+
+      <aside class="card h-fit" data-reveal>
+        <dl class="grid gap-5 text-sm">
+          <div>
+            <dt class="label text-[0.625rem]">{t.role}</dt>
+            <dd class="mt-1">{data.role[lang]}</dd>
+          </div>
+          <div>
+            <dt class="label text-[0.625rem]">{t.year}</dt>
+            <dd class="mt-1">{data.year}</dd>
+          </div>
+          <div>
+            <dt class="label text-[0.625rem]">Stack</dt>
+            <dd class="mt-2 flex flex-wrap gap-1.5">
+              {data.stack.map((tech) => <span class="chip">{tech}</span>)}
+            </dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+
+    {
+      data.gallery.length > 0 && (
+        <section class="mt-16">
+          <h2 class="label">{t.gallery}</h2>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2" data-stagger>
+            {data.gallery.map((image) => (
+              <Image
+                src={image}
+                alt=""
+                widths={[480, 960]}
+                sizes="(min-width: 640px) 33rem, 100vw"
+                class="rounded-xl border border-line"
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <nav class="mt-16 grid gap-4 sm:grid-cols-2" aria-label={t.pageTitle}>
+      {
+        previous ? (
+          <a class="card group" href={localizedPath(lang, 'project', previous.id)}>
+            <span class="label flex items-center gap-2 text-[0.625rem]">
+              <Icon name="arrow-left" />
+              {t.previous}
+            </span>
+            <span class="mt-2 block font-semibold">{previous.data.title}</span>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        next && (
+          <a class="card group text-right" href={localizedPath(lang, 'project', next.id)}>
+            <span class="label flex items-center justify-end gap-2 text-[0.625rem]">
+              {t.next}
+              <Icon name="arrow-right" />
+            </span>
+            <span class="mt-2 block font-semibold">{next.data.title}</span>
+          </a>
+        )
+      }
+    </nav>
+  </article>
+</BaseLayout>

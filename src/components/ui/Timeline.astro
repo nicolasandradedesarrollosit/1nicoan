@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import type { Lang } from '../../config/site';
+import { EXPERIENCE } from '../../data/experience';
+
+/**
+ * Work history as a rail with one dot per job; the accent line fills as the list
+ * scrolls by. `detailed` lists every bullet instead of the three highlights.
+ */
+interface Props {
+  lang: Lang;
+  detailed?: boolean;
+}
+const { lang, detailed = false } = Astro.props;
+---
+
+<ol role="list" class="timeline" data-stagger>
+  {
+    EXPERIENCE.map((job) => (
+      <li class="timeline__item">
+        <span class:list={['timeline__dot', job.current && 'timeline__dot--current']} aria-hidden="true" />
+        <article class="card" data-spotlight>
+          <header class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+            <p class="flex items-center gap-2.5 font-mono text-sm text-accent">
+              {job.logo ? (
+                <Image
+                  src={job.logo}
+                  alt=""
+                  width={32}
+                  height={32}
+                  densities={[1, 2, 3]}
+                  class="size-8 rounded-md border border-line bg-white object-contain p-0.5"
+                />
+              ) : (
+                <span
+                  class="grid size-8 place-items-center rounded-md border border-line bg-bg text-xs font-medium text-fg"
+                  aria-hidden="true"
+                >
+                  {job.company[lang].charAt(0)}
+                </span>
+              )}
+              {job.company[lang]}
+            </p>
+            <p class="chip">
+              <Icon name="calendar" />
+              {job.period[lang]}
+            </p>
+          </header>
+
+          <h3 class="mt-5 text-xl font-semibold">{job.role}</h3>
+          <ul role="list" class:list={['mt-3 max-w-3xl text-muted', detailed ? 'space-y-2.5' : 'space-y-1.5']}>
+            {(detailed ? job.details : job.highlights).map((item) => (
+              <li class="relative pl-5 before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2.5 before:bg-muted">
+                {item[lang]}
+              </li>
+            ))}
+          </ul>
+          <ul role="list" class="mt-5 flex flex-wrap gap-1.5">
+            {job.stack.map((tech) => (
+              <li class="chip">{tech}</li>
+            ))}
+          </ul>
+        </article>
+      </li>
+    ))
+  }
+  <span class="timeline__rail" aria-hidden="true"></span>
+  <span class="timeline__progress" aria-hidden="true"></span>
+</ol>

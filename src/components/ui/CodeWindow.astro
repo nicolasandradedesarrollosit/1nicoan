@@ -1,0 +1,23 @@
+---
+import type { Token } from '../../data/profile';
+
+/** Editor-style window; its lines appear one by one when it scrolls into view. */
+interface Props {
+  filename: string;
+  lines: Token[][];
+  class?: string;
+}
+const { filename, lines, class: className } = Astro.props;
+---
+
+<div class:list={['card overflow-hidden p-0', className]}>
+  <div class="flex items-center gap-2 border-b border-line px-4 py-3">
+    <span class="size-2.5 rounded-full bg-line"></span>
+    <span class="size-2.5 rounded-full bg-line"></span>
+    <span class="size-2.5 rounded-full bg-line"></span>
+    <span class="ml-2 font-mono text-xs text-muted">{filename}</span>
+  </div>
+  <pre class="overflow-x-auto p-5 font-mono text-xs leading-7 sm:text-[0.8125rem]"><code>{lines.map((line, i) => (
+    <span class="code-line block" style={`--i:${i}`}><span class="tok-dim mr-4 inline-block w-4 text-right opacity-60 select-none">{i + 1}</span>{line.map(([type, text]) => (type === 'plain' ? text : <span class={`tok-${type}`}>{text}</span>))}</span>
+  ))}<span class="code-line block" style={`--i:${lines.length}`}><span class="mr-4 inline-block w-4"></span><span class="caret"></span></span></code></pre>
+</div>

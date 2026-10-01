@@ -1,0 +1,36 @@
+---
+/** Big value + caption. With `percent`, draws a ring and counts up to it on reveal. */
+interface Props {
+  value: string;
+  label: string;
+  percent?: number;
+}
+const { value, label, percent } = Astro.props;
+// "~80%" → "~{n}%": the count-up swaps only the number.
+const template = percent === undefined ? undefined : value.replace(String(percent), '{n}');
+---
+
+<div class="card flex flex-col justify-between gap-6">
+  <div class="flex items-center justify-between gap-3">
+    <p class="text-3xl font-semibold tracking-tight" data-count={percent} data-template={template}>{value}</p>
+    {
+      percent !== undefined && (
+        <svg class="size-9 -rotate-90 text-accent" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <circle cx="18" cy="18" r="15" stroke="var(--line)" stroke-width="3" />
+          <circle
+            class="ring__value"
+            cx="18"
+            cy="18"
+            r="15"
+            pathLength="100"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            style={`--v:${percent}`}
+          />
+        </svg>
+      )
+    }
+  </div>
+  <p class="text-sm text-muted">{label}</p>
+</div>

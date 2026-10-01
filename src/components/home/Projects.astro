@@ -1,0 +1,35 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import type { Lang } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localizedPath } from '../../i18n/routes';
+import { getProjects, projectNumber } from '../../lib/projects';
+
+interface Props {
+  lang: Lang;
+  kicker: string;
+}
+const { lang, kicker } = Astro.props;
+const t = ui[lang].projects;
+
+const projects = (await getProjects()).map((project, i) => ({ project, number: projectNumber(i) }));
+const featured = projects.find(({ project }) => project.data.featured) ?? projects[0];
+const rest = projects.filter((entry) => entry !== featured).slice(0, 3);
+---
+
+<section id="projects" class="wrap section" aria-labelledby="projects-title" data-section>
+  <SectionHeading
+    id="projects"
+    kicker={kicker}
+    title={t.title}
+    more={{ href: localizedPath(lang, 'projects'), label: t.all }}
+  />
+
+  <div class="grid gap-4" data-stagger>
+    {featured && <ProjectCard project={featured.project} number={featured.number} lang={lang} featured />}
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+      {rest.map(({ project, number }) => <ProjectCard project={project} number={number} lang={lang} />)}
+    </div>
+  </div>
+</section>

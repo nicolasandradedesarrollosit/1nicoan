@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import type { Lang } from '../../config/site';
+import type { Project } from '../../lib/projects';
+
+/**
+ * Project screenshot, or a generated placeholder (dot grid + number) while there is
+ * none. Shares a view-transition name between the card and the detail page.
+ */
+interface Props {
+  project: Project;
+  lang: Lang;
+  /** "01", "02"… shown on the placeholder. */
+  number: string;
+  sizes: string;
+  class?: string;
+  /** Detail page hero: loaded eagerly. */
+  priority?: boolean;
+}
+const { project, lang, number, sizes, class: className, priority = false } = Astro.props;
+const { data } = project;
+---
+
+<div
+  class:list={['relative overflow-hidden rounded-xl border border-line bg-surface', className]}
+  transition:name={`project-visual-${project.id}`}
+>
+  {
+    data.image ? (
+      <Image
+        src={data.image}
+        alt={data.imageAlt?.[lang] ?? data.title}
+        widths={[480, 960, 1440]}
+        sizes={sizes}
+        loading={priority ? 'eager' : 'lazy'}
+        class="size-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+      />
+    ) : (
+      <div class="size-full transition-transform duration-700 group-hover:scale-[1.04]" aria-hidden="true">
+        <div class="dots [mask-image:none]" />
+        <span class="absolute right-5 bottom-2 font-mono text-[clamp(3rem,10vw,6rem)] leading-none font-medium text-line">
+          {number}
+        </span>
+      </div>
+    )
+  }
+</div>

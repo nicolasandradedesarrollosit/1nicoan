@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CvButton from '../ui/CvButton.astro';
+import EducationCards from '../ui/EducationCards.astro';
+import PageHeader from '../ui/PageHeader.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Timeline from '../ui/Timeline.astro';
+import type { Lang } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localizedPath } from '../../i18n/routes';
+import { breadcrumbLd } from '../../lib/seo';
+
+/** Full work history and education: the long version of the home page section. */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const path = localizedPath(lang, 'experience');
+---
+
+<BaseLayout
+  lang={lang}
+  route={{ id: 'experience' }}
+  seo={t.meta.experience}
+  jsonLd={[breadcrumbLd(lang, { name: t.experience.pageTitle, href: path })]}
+>
+  <PageHeader
+    back={{ href: localizedPath(lang), label: t.palette.home }}
+    kicker={`/ ${t.nav.experience.toLowerCase()}`}
+    title={t.experience.pageTitle}
+    lead={t.experience.pageLead}
+  >
+    <div class="fade-up mt-8" style="--d:300ms"><CvButton lang={lang} /></div>
+  </PageHeader>
+
+  <section class="wrap mt-6" aria-label={t.experience.title}>
+    <Timeline lang={lang} detailed />
+  </section>
+
+  <section class="wrap section" aria-labelledby="education-title">
+    <SectionHeading id="education" kicker={`/ ${t.education.title.toLowerCase()}`} title={t.education.title} />
+    <EducationCards lang={lang} />
+  </section>
+</BaseLayout>

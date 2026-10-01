@@ -1,0 +1,49 @@
+---
+import Icon from '../ui/Icon.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import type { Lang } from '../../config/site';
+import { SKILLS } from '../../data/skills';
+import { ui } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  kicker: string;
+}
+const { lang, kicker } = Astro.props;
+
+// Full class names so Tailwind can see them.
+const TINT = {
+  front: { text: 'text-front', bar: 'bg-front' },
+  back: { text: 'text-back', bar: 'bg-back' },
+  tools: { text: 'text-tools', bar: 'bg-tools' },
+};
+---
+
+<section id="stack" class="wrap section" aria-labelledby="stack-title" data-section>
+  <SectionHeading id="stack" kicker={kicker} title={ui[lang].stack.title} />
+
+  <div class="grid gap-4 md:grid-cols-3" data-stagger>
+    {
+      SKILLS.map((group) => (
+        <article class="card overflow-hidden" data-spotlight>
+          <span class:list={['absolute inset-x-0 top-0 h-0.5', TINT[group.id].bar]} aria-hidden="true" />
+          <span
+            class:list={[
+              'grid size-10 place-items-center rounded-lg border border-line bg-bg',
+              TINT[group.id].text,
+            ]}
+          >
+            <Icon name={group.icon} class="size-5" />
+          </span>
+          <h3 class="mt-5 text-lg font-semibold">{group.name}</h3>
+          <p class="mt-1 text-sm text-muted">{group.description[lang]}</p>
+          <ul role="list" class="mt-5 flex flex-wrap gap-1.5">
+            {group.items.map((item) => (
+              <li class="chip">{item}</li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </div>
+</section>

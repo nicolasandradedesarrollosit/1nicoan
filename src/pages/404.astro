@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { DEFAULT_LOCALE } from '../config/site';
+import { ui } from '../i18n/ui';
+import { localizedPath } from '../i18n/routes';
+
+const lang = DEFAULT_LOCALE;
+const t = ui[lang].notFound;
+---
+
+<BaseLayout lang={lang} seo={{ title: t.title, description: t.body, noindex: true }}>
+  <section class="wrap py-28">
+    <p class="kicker">404</p>
+    <h1 class="mt-5 text-display leading-none font-semibold tracking-tighter">{t.title}</h1>
+    <p class="mt-6 text-lg text-muted">{t.body}</p>
+    <a class="btn mt-8" href={localizedPath(lang)}>{t.home}</a>
+  </section>
+</BaseLayout>

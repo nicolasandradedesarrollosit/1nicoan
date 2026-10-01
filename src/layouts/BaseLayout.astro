@@ -1,0 +1,76 @@
+---
+import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+import '../styles/index.css';
+
+import SEO, { type SeoProps } from '../components/seo/SEO.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import PageLoader from '../components/layout/PageLoader.astro';
+import CommandPalette from '../components/ui/CommandPalette.astro';
+import { LOCALE_META, type Lang } from '../config/site';
+import { ui } from '../i18n/ui';
+import type { PageRoute } from '../i18n/routes';
+import { graph } from '../lib/seo';
+
+interface Props {
+  lang: Lang;
+  /** Which page this is; omit only for pages without a locale twin (404). */
+  route?: PageRoute;
+  seo: SeoProps;
+  /** Extra JSON-LD nodes (BreadcrumbList…). */
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { lang, route, seo, jsonLd = [] } = Astro.props;
+---
+
+<!doctype html>
+<html lang={LOCALE_META[lang].htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      Runs before first paint so the stored or system theme never flashes, and again
+      after every client-side navigation (the router replaces <html> attributes).
+    -->
+    <script is:inline>
+      (function () {
+        function applyTheme() {
+          var theme;
+          try {
+            theme = localStorage.getItem('theme');
+          } catch (e) {}
+          if (theme !== 'light' && theme !== 'dark') {
+            theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.dataset.theme = theme;
+        }
+        applyTheme();
+        document.addEventListener('astro:after-swap', applyTheme);
+      })();
+    </script>
+    <Font cssVariable="--font-geist" preload={[{ weight: 400, style: 'normal', subset: 'latin' }]} />
+    <Font cssVariable="--font-geist-mono" />
+    <SEO lang={lang} route={route} {...seo} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c0c0e" media="(prefers-color-scheme: dark)" />
+    <JsonLd data={graph(lang, ...jsonLd)} />
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{ui[lang].skip}</a>
+    <Header lang={lang} route={route} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <CommandPalette lang={lang} route={route} />
+    <PageLoader />
+    <script>
+      import '../lib/client';
+    </script>
+  </body>
+</html>

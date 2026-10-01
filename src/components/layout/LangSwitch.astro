@@ -1,0 +1,28 @@
+---
+import { LOCALE_META, type Lang } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localizedPath, otherLang, type PageRoute } from '../../i18n/routes';
+
+/**
+ * Links to the same page in the other locale. `data-astro-reload` keeps the router's
+ * own click handler away: lib/client.ts navigates it behind the curtain instead.
+ */
+interface Props {
+  lang: Lang;
+  route?: PageRoute;
+}
+const { lang, route } = Astro.props;
+const target = otherLang(lang);
+---
+
+<a
+  class="icon-btn font-mono text-xs font-medium no-underline"
+  href={localizedPath(target, route?.id, route?.slug)}
+  hreflang={LOCALE_META[target].htmlLang}
+  lang={LOCALE_META[target].htmlLang}
+  aria-label={ui[lang].switchLang}
+  data-lang-switch
+  data-astro-reload
+>
+  {LOCALE_META[target].label}
+</a>

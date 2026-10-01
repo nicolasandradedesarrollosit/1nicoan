@@ -1,5 +1,6 @@
 import type { ImageMetadata } from 'astro';
 import type { Localized } from '../config/site';
+import type { YearMonth } from '../lib/period';
 import teramotLogo from '../assets/logos/teramot.jpeg';
 
 export interface Job {
@@ -7,7 +8,10 @@ export interface Job {
   /** Company logo (src/assets/logos); without one the badge shows the initial. */
   logo?: ImageMetadata;
   role: string;
-  period: Localized;
+  /** First month, "YYYY-MM". The period label and its duration are computed from it. */
+  start: YearMonth;
+  /** Last month; leave it out while the job is ongoing. */
+  end?: YearMonth;
   /** Highlights the timeline dot. */
   current: boolean;
   /** Home page: keep it to three short lines. */
@@ -22,7 +26,7 @@ export const EXPERIENCE: Job[] = [
     company: { es: 'Teramot', en: 'Teramot' },
     logo: teramotLogo,
     role: 'Software Engineer',
-    period: { es: 'Dic 2025 — Hoy', en: 'Dec 2025 — Present' },
+    start: '2025-12',
     current: true,
     highlights: [
       {
@@ -89,7 +93,7 @@ export const EXPERIENCE: Job[] = [
   {
     company: { es: 'Freelance y proyectos personales', en: 'Freelance & personal projects' },
     role: 'Software Engineer',
-    period: { es: 'Ene 2025 — Hoy', en: 'Jan 2025 — Present' },
+    start: '2025-01',
     current: false,
     highlights: [
       {

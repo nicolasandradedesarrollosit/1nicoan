@@ -7,6 +7,7 @@ import { navigateWithLoader, withLoader } from './loader';
 import { initPointer } from './motion/pointer';
 import { initScroll } from './motion/scroll';
 import { initPalette, openPalette } from './palette';
+import { initDurations } from './period';
 
 const root = document.documentElement;
 
@@ -74,4 +75,5 @@ document.addEventListener('astro:page-load', () => {
   initScroll();
   initPointer();
   initPalette();
+  initDurations();
 });

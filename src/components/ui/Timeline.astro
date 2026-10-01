@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import type { Lang } from '../../config/site';
 import { EXPERIENCE } from '../../data/experience';
+import { formatDuration, formatPeriod, monthsBetween } from '../../lib/period';
 
 /**
  * Work history as a rail with one dot per job; the accent line fills as the list
@@ -44,7 +45,12 @@ const { lang, detailed = false } = Astro.props;
             </p>
             <p class="chip">
               <Icon name="calendar" />
-              {job.period[lang]}
+              {formatPeriod(lang, job.start, job.end)}
+              <span aria-hidden="true">·</span>
+              {/* Ongoing jobs are recounted in the browser (data-since), so the build date does not freeze them. */}
+              <span data-since={job.end ? undefined : job.start}>
+                {formatDuration(lang, monthsBetween(job.start, job.end))}
+              </span>
             </p>
           </header>
 

@@ -7,6 +7,10 @@ import { SECTIONS, SITE, type Lang, type SectionId } from '../../config/site';
 import { ui } from '../../i18n/ui';
 import { localizedPath, sectionPath, type PageRoute } from '../../i18n/routes';
 
+/**
+ * Sticky header: monogram, section links, command palette button, language switch,
+ * theme toggle, the mobile menu and the reading progress bar.
+ */
 interface Props {
   lang: Lang;
   route?: PageRoute;

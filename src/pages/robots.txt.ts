@@ -1,3 +1,4 @@
+/** robots.txt, generated so the sitemap URL always follows `site` in astro.config.mjs. */
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = ({ site }) => {

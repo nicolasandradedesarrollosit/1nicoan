@@ -1,5 +1,6 @@
 import type { Localized } from '../config/site';
 
+/** Skill groups: the stack cards of the home page and the technologies marquee. */
 export interface SkillGroup {
   /** Also the colour token: text-front, text-back, text-tools. */
   id: 'front' | 'back' | 'tools';

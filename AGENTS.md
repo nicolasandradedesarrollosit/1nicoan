@@ -14,6 +14,8 @@ Full documentation: https://docs.astro.build
 
 ## Project conventions
 
+See `README.md` for an overview, `docs/ARCHITECTURE.md` for how the pieces fit and `docs/CONTENT.md` for content recipes. Keep them up to date when behaviour changes.
+
 - Personal portfolio, bilingual. Code, comments and docs in English.
 - Keep copy short: one line per idea. The long version lives in `/experiencia/` and the downloadable CV.
 

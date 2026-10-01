@@ -1,12 +1,8 @@
----
-import Monogram from '../ui/Monogram.astro';
----
-
 <!--
-  Full-screen curtain shown while the theme or the language changes: the monogram
-  draws itself, the change happens behind it, then it fades out. Driven by
-  `data-loading` on <html> (see src/lib/loader.ts).
+  Full-screen curtain shown while the theme or the language changes: a thin bar
+  sweeps, the change happens behind it, then it fades out. Driven by `data-loading`
+  on <html> (see src/lib/loader.ts).
 -->
 <div class="loader" aria-hidden="true">
-  <Monogram class="w-20" />
+  <span class="loader__bar"></span>
 </div>

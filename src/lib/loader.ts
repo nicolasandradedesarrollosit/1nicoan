@@ -1,8 +1,8 @@
 /** Client-side control of the page curtain (src/components/layout/PageLoader.astro). */
 import { navigate } from 'astro:transitions/client';
 
-/** Time for the monogram to finish drawing; keep in sync with `.loader` in index.css. */
-const DRAW_MS = 750;
+/** Time for the curtain to cover the page before anything changes behind it. */
+const COVER_MS = 450;
 /** How long the curtain stays once the change behind it is done. */
 const HOLD_MS = 350;
 
@@ -16,14 +16,14 @@ export function hideLoader() {
   delete root.dataset.loading;
 }
 
-/** Raises the curtain, runs `action` once the monogram is drawn, then lifts it. */
+/** Raises the curtain, runs `action` once the page is covered, then lifts it. */
 export function withLoader(action: () => void) {
   if (reducedMotion()) return action();
   root.dataset.loading = 'out';
   setTimeout(() => {
     action();
     setTimeout(hideLoader, HOLD_MS);
-  }, DRAW_MS);
+  }, COVER_MS);
 }
 
 /** Client-side navigation behind the curtain (used by the language switch). */
@@ -33,11 +33,11 @@ export function navigateWithLoader(href: string) {
   setTimeout(() => {
     navigating = true;
     navigate(href);
-  }, DRAW_MS);
+  }, COVER_MS);
 }
 
 // The curtain already hides the change: skip the router's cross-fade, which would
-// make the monogram blink.
+// make the bar blink.
 document.addEventListener('astro:before-swap', (event) => {
   if (navigating) event.viewTransition.skipTransition();
 });

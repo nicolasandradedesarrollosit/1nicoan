@@ -3,8 +3,8 @@ import type { Localized } from '../config/site';
 /** Stat tiles of the profile bento. `percent` draws a ring and counts up to it. */
 export const FACTS: { value: string; percent?: number; label: Localized }[] = [
   { value: '~80%', percent: 80, label: { es: 'Cobertura de tests unitarios', en: 'Unit test coverage' } },
-  { value: 'SOC 2', label: { es: 'Type II · auth y MFA en producción', en: 'Type II · auth and MFA in production' } },
-  { value: '1 / 6', label: { es: 'Startups en Endeavor Scale Up', en: 'Startups in Endeavor Scale Up' } },
+  { value: '2', label: { es: 'Pasarelas de pago: Stripe y Mercado Pago', en: 'Payment gateways: Stripe and Mercado Pago' } },
+  { value: 'MCP', label: { es: 'AI engineering: tools y dashboards para agentes', en: 'AI engineering: tools and dashboards for agents' } },
 ];
 
 /** A piece of a code line: [token class, text]. Classes are the .tok-* ones in index.css. */

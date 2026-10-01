@@ -12,9 +12,10 @@ const { filename, lines, class: className } = Astro.props;
 
 <div class:list={['card overflow-hidden p-0', className]}>
   <div class="flex items-center gap-2 border-b border-line px-4 py-3">
-    <span class="size-2.5 rounded-full bg-line"></span>
-    <span class="size-2.5 rounded-full bg-line"></span>
-    <span class="size-2.5 rounded-full bg-line"></span>
+    <!-- macOS window buttons: fixed colours, the same in both themes. -->
+    <span class="size-2.5 rounded-full bg-[#ff5f57]"></span>
+    <span class="size-2.5 rounded-full bg-[#febc2e]"></span>
+    <span class="size-2.5 rounded-full bg-[#28c840]"></span>
     <span class="ml-2 font-mono text-xs text-muted">{filename}</span>
   </div>
   <pre class="overflow-x-auto p-5 font-mono text-xs leading-7 sm:text-[0.8125rem]"><code>{lines.map((line, i) => (

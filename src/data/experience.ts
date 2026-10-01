@@ -30,12 +30,12 @@ export const EXPERIENCE: Job[] = [
         en: 'The 2.0 app end to end: a React 19 SPA and Go APIs on PostgreSQL.',
       },
       {
-        es: 'Pagos con Stripe y Mercado Pago, y MFA con LogTo para la certificación SOC 2 Type II.',
-        en: 'Payments with Stripe and Mercado Pago, and MFA with LogTo towards SOC 2 Type II.',
+        es: 'Pasarela de pagos de punta a punta: Stripe internacional y Mercado Pago local.',
+        en: 'Payment gateway end to end: Stripe for international, Mercado Pago for local.',
       },
       {
-        es: 'Visualización de datos con AG Grid sobre AWS Athena y dashboards vía MCP.',
-        en: 'Data visualization with AG Grid on AWS Athena and dashboards through MCP.',
+        es: 'AI engineering con MCP: tools y dashboards para agentes, sobre datos de AWS Athena.',
+        en: 'AI engineering with MCP: tools and dashboards for agents, on AWS Athena data.',
       },
     ],
     details: [
@@ -84,7 +84,7 @@ export const EXPERIENCE: Job[] = [
         en: 'Introduced AI-agent-assisted programming, raising my own and the team’s productivity.',
       },
     ],
-    stack: ['React 19', 'TypeScript', 'Redux Toolkit', 'AG Grid', 'Go', 'PostgreSQL'],
+    stack: ['React 19', 'TypeScript', 'Go', 'PostgreSQL', 'MCP', 'Stripe', 'Mercado Pago'],
   },
   {
     company: { es: 'Freelance y proyectos personales', en: 'Freelance & personal projects' },

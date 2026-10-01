@@ -31,6 +31,8 @@ See `README.md` for an overview, `docs/ARCHITECTURE.md` for how the pieces fit a
 - Identity, links, locales and home sections → `src/config/site.ts`.
 - Interface copy (both locales) → `src/i18n/ui.ts`.
 - Experience, profile facts, skills, education → `src/data/*.ts` (bilingual strings are `{ es, en }`).
+- Profile photo → `src/assets/portrait.{jpg,jpeg,png,webp,avif}`, picked up by name (`PORTRAIT` in `src/data/profile.ts`); without one a placeholder is drawn.
+- Job periods → `start` / `end` as `'YYYY-MM'` in `src/data/experience.ts`; the label and the duration are computed in `src/lib/period.ts` (ongoing jobs are recounted in the browser).
 - Company logos → `src/assets/logos/`, imported in `src/data/experience.ts` (`logo`), so Astro optimizes them.
 - Projects → one JSON per project in `src/content/projects/` (schema in `src/content.config.ts`); the file name is the URL slug. Screenshots go in `src/content/projects/img/` and are referenced as `"image": "./img/name.png"`; without one a placeholder is drawn.
 
@@ -39,7 +41,7 @@ See `README.md` for an overview, `docs/ARCHITECTURE.md` for how the pieces fit a
 - Tailwind CSS v4: tokens, light/dark colours and shared classes (`.wrap`, `.section`, `.card`, `.kicker`, `.title`, `.btn`, `.chip`, `.timeline`…) in `src/styles/index.css`; utilities for one-off layout.
 - Light and dark themes via `data-theme` on `<html>` (inline script in `BaseLayout.astro`). Always use the colour tokens (`bg-bg`, `text-muted`, `border-line`…), never raw colours.
 - Motion is progressive enhancement: every element is fully visible at rest, so the page reads the same without JS and with `prefers-reduced-motion`. Prefer CSS (keyframes, scroll-driven animations behind `@supports`).
-- Behaviour is opt-in through data attributes: `data-reveal`, `data-stagger`, `data-spotlight`, `data-tilt`, `data-magnetic`, `data-count`, `data-copy`, `data-theme-toggle`, `data-lang-switch`, `data-palette-open`, `data-filter`.
+- Behaviour is opt-in through data attributes: `data-reveal`, `data-stagger`, `data-spotlight`, `data-tilt`, `data-magnetic`, `data-count`, `data-since`, `data-copy`, `data-theme-toggle`, `data-lang-switch`, `data-palette-open`, `data-filter`.
 - Client code: one entry, `src/lib/client.ts`. Clicks are delegated on `document`; per-element setup runs on `astro:page-load` because the router swaps pages without reloading. Never add a one-off `<script>` that runs only on first load.
-- Theme and language changes run behind the monogram curtain (`src/lib/loader.ts`, `PageLoader.astro`).
+- Theme and language changes run behind the page curtain (`src/lib/loader.ts`, `PageLoader.astro`).
 - The download buttons serve the CV of the current locale from `public/cv/` (paths in `SITE.cv`).

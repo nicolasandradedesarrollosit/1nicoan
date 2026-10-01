@@ -133,10 +133,10 @@ hero letters, marquee and editor window are CSS keyframes.
 
 ### Page curtain
 
-Theme and language changes happen behind a full-screen curtain where the "NA"
-monogram draws itself (`PageLoader.astro`, `lib/loader.ts`, `.loader` in the CSS).
-It is driven by `data-loading` on `<html>`: `out` draws the monogram, `in` shows it
-already drawn on the incoming page.
+Theme and language changes happen behind a full-screen curtain with a thin bar
+sweeping across it (`PageLoader.astro`, `lib/loader.ts`, `.loader` in the CSS).
+It is driven by `data-loading` on `<html>`: `out` on the page being left, `in` on
+the incoming one, so the curtain stays up across the swap.
 
 For a language change the curtain wraps a router navigation, with three details:
 

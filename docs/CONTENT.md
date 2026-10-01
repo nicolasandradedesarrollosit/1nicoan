@@ -62,6 +62,9 @@ slug**: `mi-proyecto.json` becomes `/proyectos/mi-proyecto/` and
 
 `src/data/experience.ts`, newest first. Each job has:
 
+- `start` and `end`: months as `'YYYY-MM'`. Leave `end` out while the job is ongoing.
+  The chip ("Dic 2025 — Hoy · 11 meses") is computed from them, counting both the
+  first and the last month as LinkedIn does (`src/lib/period.ts`).
 - `highlights`: three short lines, shown on the home page.
 - `details`: the full list, shown on `/experiencia/`.
 - `stack`: the chips under the card.
@@ -78,6 +81,9 @@ PNG with a transparent background works best; the badge is drawn on white.
 
 `src/data/profile.ts`:
 
+- The photo is `src/assets/portrait.jpg` (or `.jpeg`, `.png`, `.webp`, `.avif`): drop
+  the file there and it replaces the monogram placeholder. Use a square image, at
+  least 480px across.
 - `FACTS` are the stat tiles. A tile with `percent` draws a ring and counts up to
   it; `value` must contain that number (for example `'~80%'` with `percent: 80`).
 - `PROFILE_CODE` is the content of the `nicolas.ts` editor window, one array per

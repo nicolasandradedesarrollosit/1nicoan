@@ -9,7 +9,7 @@ import Contact from '../home/Contact.astro';
 import EducationCards from '../ui/EducationCards.astro';
 import Marquee from '../ui/Marquee.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
-import { SECTIONS, type Lang, type SectionId } from '../../config/site';
+import type { Lang, SectionId } from '../../config/site';
 import { SKILLS } from '../../data/skills';
 import { ui } from '../../i18n/ui';
 
@@ -19,8 +19,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = ui[lang];
 
-const kicker = (id: SectionId) =>
-  `${String(SECTIONS.indexOf(id) + 1).padStart(2, '0')} / ${t.nav[id].toLowerCase()}`;
+const kicker = (id: SectionId) => `/ ${t.nav[id].toLowerCase()}`;
 ---
 
 <BaseLayout lang={lang} route={{ id: 'home' }} seo={t.meta.home}>

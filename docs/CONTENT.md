@@ -97,7 +97,7 @@ strip under the hero.
 ## Add a section to the home page
 
 1. Add its id to `SECTIONS` in `src/config/site.ts` (order matters: it sets the
-   header links and the `01 / …` numbering).
+   header links).
 2. Add its name to `nav` in `src/i18n/ui.ts` for both locales.
 3. Create the component in `src/components/home/`. Its root must be
    `<section id="{id}" data-section>` for the header highlight to work.

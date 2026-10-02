@@ -39,7 +39,6 @@ export interface Crumb {
   href: string;
 }
 
-/** Breadcrumb trail for inner pages; always starts at the locale home. */
 export function breadcrumbLd(lang: Lang, ...items: Crumb[]): JsonLd {
   const trail = [{ name: ui[lang].palette.home, href: localizedPath(lang) }, ...items];
   return {
@@ -53,7 +52,6 @@ export function breadcrumbLd(lang: Lang, ...items: Crumb[]): JsonLd {
   };
 }
 
-/** Wraps nodes in a single @graph that always includes Person and WebSite. */
 export function graph(lang: Lang, ...nodes: JsonLd[]): JsonLd {
   return { '@context': 'https://schema.org', '@graph': [personLd(), websiteLd(lang), ...nodes] };
 }

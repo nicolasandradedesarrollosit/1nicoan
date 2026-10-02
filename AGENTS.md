@@ -16,7 +16,8 @@ Full documentation: https://docs.astro.build
 
 See `README.md` for an overview, `docs/ARCHITECTURE.md` for how the pieces fit and `docs/CONTENT.md` for content recipes. Keep them up to date when behaviour changes.
 
-- Personal portfolio, bilingual. Code, comments and docs in English.
+- Personal portfolio, bilingual. Code and docs in English.
+- No comments in source files: explanations live in `docs/`. The only exception is the `// @ts-check` directive in `astro.config.mjs`.
 - Keep copy short: one line per idea. The long version lives in `/experiencia/` and the downloadable CV.
 
 ### Routes

@@ -1,8 +1,6 @@
 import type { Localized } from '../config/site';
 
-/** Skill groups: the stack rows of the home page and the technologies marquee. */
 export interface SkillGroup {
-  /** Also the colour token: bg-front, bg-back, bg-tools. */
   id: 'front' | 'back' | 'tools';
   name: string;
   description: Localized;

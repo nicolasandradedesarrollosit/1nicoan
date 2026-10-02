@@ -1,8 +1,3 @@
-/**
- * Client entry point, loaded once from BaseLayout. The router swaps the page without
- * reloading, so clicks are handled by delegation on `document` and everything that
- * touches specific elements is re-run on `astro:page-load`.
- */
 import { navigateWithLoader, withLoader } from './loader';
 import { initPointer } from './motion/pointer';
 import { initScroll } from './motion/scroll';
@@ -18,7 +13,6 @@ function toggleTheme() {
     try {
       localStorage.setItem('theme', next);
     } catch {
-      // Storage unavailable: the choice just lasts for this page view.
     }
   });
 }
@@ -43,7 +37,6 @@ function toggleMenu(button: HTMLElement) {
   button.setAttribute('aria-expanded', String(!menu.hidden));
 }
 
-/** Projects page: shows only the cards whose stack includes the chosen technology. */
 function filterProjects(button: HTMLElement) {
   const value = button.dataset.filter ?? '';
   document.querySelectorAll<HTMLElement>('[data-filter]').forEach((el) => {

@@ -1,10 +1,8 @@
-/** Cursor-driven effects. Mouse only: skipped on touch and with reduced motion. */
 import { reducedMotion } from '../loader';
 
 const TILT_DEG = 3;
 const MAGNET = 0.3;
 
-/** Cursor position inside `el`, in px and as -1…1 from its centre. */
 function relative(event: PointerEvent, el: HTMLElement) {
   const rect = el.getBoundingClientRect();
   const x = event.clientX - rect.left;
@@ -22,7 +20,6 @@ function bind(selector: string, move: (el: HTMLElement, event: PointerEvent) => 
 export function initPointer() {
   if (reducedMotion() || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-  // Glow / accent dots that follow the cursor (read by .dots--spot and .card::before).
   bind(
     '[data-spotlight]',
     (el, event) => {
@@ -34,7 +31,6 @@ export function initPointer() {
     ['--spot'],
   );
 
-  // Cards lean slightly towards the cursor.
   bind(
     '[data-tilt]',
     (el, event) => {
@@ -45,7 +41,6 @@ export function initPointer() {
     ['--rx', '--ry'],
   );
 
-  // Buttons are pulled towards the cursor.
   bind(
     '[data-magnetic]',
     (el, event) => {

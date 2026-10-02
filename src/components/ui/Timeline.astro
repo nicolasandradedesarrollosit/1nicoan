@@ -5,10 +5,6 @@ import type { Lang } from '../../config/site';
 import { EXPERIENCE } from '../../data/experience';
 import { formatDuration, formatPeriod, monthsBetween } from '../../lib/period';
 
-/**
- * Work history as a rail with one dot per job; the accent line fills as the list
- * scrolls by. `detailed` lists every bullet instead of the three highlights.
- */
 interface Props {
   lang: Lang;
   detailed?: boolean;

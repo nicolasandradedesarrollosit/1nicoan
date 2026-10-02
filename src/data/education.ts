@@ -1,4 +1,3 @@
-/** Degrees and languages, newest first. Shown on the home page and on /experiencia/. */
 import type { Localized } from '../config/site';
 
 export const EDUCATION: { title: Localized; place: Localized; period: Localized }[] = [

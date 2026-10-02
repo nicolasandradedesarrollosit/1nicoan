@@ -1,16 +1,10 @@
-/**
- * Command palette (src/components/ui/CommandPalette.astro). Items are plain links and
- * buttons carrying the same data attributes as the rest of the UI, so activating one
- * just clicks it; this module only handles opening, filtering and keyboard selection.
- */
-
 const dialog = () => document.querySelector<HTMLDialogElement>('[data-palette]');
 
 const normalize = (text: string) =>
   text
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '');
+    .replace(/[\u0300-\u036f]/g, '');
 
 function visibleItems(root: HTMLElement) {
   return Array.from(root.querySelectorAll<HTMLElement>('[data-palette-item]')).filter((item) => !item.hidden);
@@ -47,7 +41,6 @@ export function openPalette() {
   input?.focus();
 }
 
-/** Wires the dialog rendered on the current page. */
 export function initPalette() {
   const root = dialog();
   if (!root) return;
@@ -71,12 +64,10 @@ export function initPalette() {
 
   root.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
-    // Close on backdrop click and after choosing an item.
     if (target === root || target.closest('[data-palette-item]')) root.close();
   });
 }
 
-// Cmd/Ctrl + K toggles the palette from anywhere.
 document.addEventListener('keydown', (event) => {
   if (event.key.toLowerCase() !== 'k' || !(event.metaKey || event.ctrlKey)) return;
   event.preventDefault();

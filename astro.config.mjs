@@ -7,14 +7,12 @@ import tailwindcss from '@tailwindcss/vite';
 
 import { DEFAULT_LOCALE, LOCALES, SITE } from './src/config/site.ts';
 
-// https://astro.build/config
 export default defineConfig({
   site: SITE.url,
   trailingSlash: 'always',
   output: 'static',
   adapter: vercel(),
 
-  // Spanish at "/", English at "/en/".
   i18n: {
     locales: [...LOCALES],
     defaultLocale: DEFAULT_LOCALE,
@@ -53,7 +51,6 @@ export default defineConfig({
     }),
   ],
 
-  // Small stylesheet: inlining it removes the render-blocking request.
   build: { inlineStylesheets: 'always' },
 
   vite: {

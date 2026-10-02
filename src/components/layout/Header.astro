@@ -7,10 +7,6 @@ import { SECTIONS, SITE, type Lang, type SectionId } from '../../config/site';
 import { ui } from '../../i18n/ui';
 import { localizedPath, sectionPath, type PageRoute } from '../../i18n/routes';
 
-/**
- * Sticky header: monogram, section links, command palette button, language switch,
- * theme toggle, the mobile menu and the reading progress bar.
- */
 interface Props {
   lang: Lang;
   route?: PageRoute;
@@ -18,8 +14,6 @@ interface Props {
 const { lang, route } = Astro.props;
 const t = ui[lang];
 
-// On inner pages the link of the matching section stays highlighted; on the home
-// page the scroll-spy (lib/motion/scroll.ts) moves the highlight as you scroll.
 const activeSection: SectionId | undefined =
   route?.id === 'experience' ? 'experience' : route?.id === 'projects' || route?.id === 'project' ? 'projects' : undefined;
 ---

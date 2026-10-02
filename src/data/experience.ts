@@ -5,18 +5,12 @@ import teramotLogo from '../assets/logos/teramot.jpeg';
 
 export interface Job {
   company: Localized;
-  /** Company logo (src/assets/logos); without one the badge shows the initial. */
   logo?: ImageMetadata;
   role: string;
-  /** First month, "YYYY-MM". The period label and its duration are computed from it. */
   start: YearMonth;
-  /** Last month; leave it out while the job is ongoing. */
   end?: YearMonth;
-  /** Highlights the timeline dot. */
   current: boolean;
-  /** Home page: keep it to three short lines. */
   highlights: Localized[];
-  /** Experience page: the full list, as in the CV. */
   details: Localized[];
   stack: string[];
 }

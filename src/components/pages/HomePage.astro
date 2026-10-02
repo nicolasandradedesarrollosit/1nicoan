@@ -13,14 +13,12 @@ import { SECTIONS, type Lang, type SectionId } from '../../config/site';
 import { SKILLS } from '../../data/skills';
 import { ui } from '../../i18n/ui';
 
-/** The home page; each locale route renders it with its `lang`. */
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
 
-/** "02 / experiencia": position in SECTIONS + localized name. */
 const kicker = (id: SectionId) =>
   `${String(SECTIONS.indexOf(id) + 1).padStart(2, '0')} / ${t.nav[id].toLowerCase()}`;
 ---

@@ -4,7 +4,6 @@ import { SITE, type Lang } from '../../config/site';
 import { ui } from '../../i18n/ui';
 import { localizedPath } from '../../i18n/routes';
 
-/** Site footer: copyright, links to the inner pages, back to top and the wordmark. */
 interface Props {
   lang: Lang;
 }
@@ -25,7 +24,6 @@ const year = new Date().getFullYear();
       <Icon name="arrow-up" />
     </a>
   </div>
-  <!-- Oversized wordmark closing the page. -->
   <p
     class="wrap pt-6 pb-12 text-[clamp(2.5rem,11.5vw,9rem)] leading-[1.1] sm:pb-16 font-semibold tracking-tighter whitespace-nowrap text-surface select-none"
     aria-hidden="true"

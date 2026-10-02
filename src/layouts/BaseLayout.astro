@@ -16,10 +16,8 @@ import { graph } from '../lib/seo';
 
 interface Props {
   lang: Lang;
-  /** Which page this is; omit only for pages without a locale twin (404). */
   route?: PageRoute;
   seo: SeoProps;
-  /** Extra JSON-LD nodes (BreadcrumbList…). */
   jsonLd?: Record<string, unknown>[];
 }
 
@@ -31,10 +29,6 @@ const { lang, route, seo, jsonLd = [] } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--
-      Runs before first paint so the stored or system theme never flashes, and again
-      after every client-side navigation (the router replaces <html> attributes).
-    -->
     <script is:inline>
       (function () {
         function applyTheme() {

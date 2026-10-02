@@ -4,11 +4,6 @@ import { LOCALE_META, SECTIONS, SITE, type Lang } from '../../config/site';
 import { ui } from '../../i18n/ui';
 import { localizedPath, otherLang, sectionPath, type PageRoute } from '../../i18n/routes';
 
-/**
- * Cmd/Ctrl+K palette. Items are ordinary links and buttons with the same data
- * attributes used elsewhere, so lib/client.ts handles them; lib/palette.ts only
- * opens, filters and moves the selection.
- */
 interface Props {
   lang: Lang;
   route?: PageRoute;

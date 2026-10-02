@@ -1,12 +1,10 @@
 ---
-/** Big value + caption. With `percent`, draws a ring and counts up to it on reveal. */
 interface Props {
   value: string;
   label: string;
   percent?: number;
 }
 const { value, label, percent } = Astro.props;
-// "~80%" → "~{n}%": the count-up swaps only the number.
 const template = percent === undefined ? undefined : value.replace(String(percent), '{n}');
 ---
 

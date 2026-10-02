@@ -1,13 +1,11 @@
 ---
 import Icon from './Icon.astro';
 
-/** Top of an inner page: back link, kicker, title and one-line lead, over the dot grid. */
 interface Props {
   back: { href: string; label: string };
   kicker: string;
   title: string;
   lead?: string;
-  /** View-transition name for the title (project detail pages). */
   titleTransition?: string;
 }
 const { back, kicker, title, lead, titleTransition } = Astro.props;

@@ -3,10 +3,6 @@ import { LOCALE_META, type Lang } from '../../config/site';
 import { ui } from '../../i18n/ui';
 import { localizedPath, otherLang, type PageRoute } from '../../i18n/routes';
 
-/**
- * Links to the same page in the other locale. `data-astro-reload` keeps the router's
- * own click handler away: lib/client.ts navigates it behind the curtain instead.
- */
 interface Props {
   lang: Lang;
   route?: PageRoute;

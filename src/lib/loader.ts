@@ -1,13 +1,9 @@
-/** Client-side control of the page curtain (src/components/layout/PageLoader.astro). */
 import { navigate } from 'astro:transitions/client';
 
-/** Time for the curtain to cover the page before anything changes behind it. */
 const COVER_MS = 450;
-/** How long the curtain stays once the change behind it is done. */
 const HOLD_MS = 350;
 
 const root = document.documentElement;
-/** True while a curtain navigation is in flight (the router swaps <html> attributes). */
 let navigating = false;
 
 export const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -16,7 +12,6 @@ export function hideLoader() {
   delete root.dataset.loading;
 }
 
-/** Raises the curtain, runs `action` once the page is covered, then lifts it. */
 export function withLoader(action: () => void) {
   if (reducedMotion()) return action();
   root.dataset.loading = 'out';
@@ -26,7 +21,6 @@ export function withLoader(action: () => void) {
   }, COVER_MS);
 }
 
-/** Client-side navigation behind the curtain (used by the language switch). */
 export function navigateWithLoader(href: string) {
   if (reducedMotion()) return void navigate(href);
   root.dataset.loading = 'out';
@@ -36,12 +30,9 @@ export function navigateWithLoader(href: string) {
   }, COVER_MS);
 }
 
-// The curtain already hides the change: skip the router's cross-fade, which would
-// make the bar blink.
 document.addEventListener('astro:before-swap', (event) => {
   if (navigating) event.viewTransition.skipTransition();
 });
-// The swap replaces <html> attributes: put the curtain back before the next paint.
 document.addEventListener('astro:after-swap', () => {
   if (navigating) root.dataset.loading = 'in';
 });

@@ -1,8 +1,5 @@
 import type { Lang, SectionId } from '../config/site';
 
-// Adding a string: declare it in Dictionary, then fill it in for every locale below.
-// TypeScript fails the build if a locale is missing a key.
-/** All interface copy. Content data (experience, skills…) lives in src/data. */
 interface Dictionary {
   meta: {
     home: { title: string; description: string };

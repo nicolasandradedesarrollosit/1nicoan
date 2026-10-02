@@ -10,7 +10,6 @@ interface Props {
 const { lang, ghost = false } = Astro.props;
 ---
 
-<!-- Plain file download: the router must not try to load it as a page. -->
 <a class:list={['btn', ghost && 'btn--ghost']} href={SITE.cv[lang]} download data-astro-reload data-magnetic>
   <Icon name="download" />
   {ui[lang].hero.downloadCv}

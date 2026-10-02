@@ -1,25 +1,18 @@
 import type { ImageMetadata } from 'astro';
 import type { Localized } from '../config/site';
 
-/**
- * Photo of the profile bento: `src/assets/portrait.{jpg,jpeg,png,webp,avif}`. Picked up
- * by name, so the site builds without it and draws a placeholder instead.
- */
 export const PORTRAIT: ImageMetadata | undefined = Object.values(
   import.meta.glob<{ default: ImageMetadata }>('../assets/portrait.{jpg,jpeg,png,webp,avif}', { eager: true }),
 )[0]?.default;
 
-/** Stat tiles of the profile bento. `percent` draws a ring and counts up to it. */
 export const FACTS: { value: string; percent?: number; label: Localized }[] = [
-  { value: '~80%', percent: 80, label: { es: 'Cobertura de tests unitarios', en: 'Unit test coverage' } },
+  { value: 'Go', label: { es: 'APIs sobre PostgreSQL', en: 'APIs on PostgreSQL' } },
   { value: '2', label: { es: 'Pasarelas de pago: Stripe y Mercado Pago', en: 'Payment gateways: Stripe and Mercado Pago' } },
   { value: 'MCP', label: { es: 'AI engineering: tools y dashboards para agentes', en: 'AI engineering: tools and dashboards for agents' } },
 ];
 
-/** A piece of a code line: [token class, text]. Classes are the .tok-* ones in index.css. */
 export type Token = ['kw' | 'str' | 'num' | 'dim' | 'plain', string];
 
-/** Contents of the editor window in the profile bento. */
 export const PROFILE_CODE: Token[][] = [
   [
     ['kw', 'const'],
@@ -57,10 +50,12 @@ export const PROFILE_CODE: Token[][] = [
     ['dim', '],'],
   ],
   [
-    ['plain', '  testCoverage'],
-    ['dim', ': '],
-    ['num', '0.8'],
-    ['dim', ','],
+    ['plain', '  ai'],
+    ['dim', ': ['],
+    ['str', "'MCP'"],
+    ['dim', ', '],
+    ['str', "'Agents'"],
+    ['dim', '],'],
   ],
   [
     ['plain', '  basedIn'],

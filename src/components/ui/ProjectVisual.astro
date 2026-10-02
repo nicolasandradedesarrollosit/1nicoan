@@ -3,18 +3,12 @@ import { Image } from 'astro:assets';
 import type { Lang } from '../../config/site';
 import type { Project } from '../../lib/projects';
 
-/**
- * Project screenshot, or a generated placeholder (dot grid + number) while there is
- * none. Shares a view-transition name between the card and the detail page.
- */
 interface Props {
   project: Project;
   lang: Lang;
-  /** "01", "02"… shown on the placeholder. */
   number: string;
   sizes: string;
   class?: string;
-  /** Detail page hero: loaded eagerly. */
   priority?: boolean;
 }
 const { project, lang, number, sizes, class: className, priority = false } = Astro.props;

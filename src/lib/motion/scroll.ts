@@ -1,10 +1,8 @@
-/** Scroll-linked behaviour: reveals, count-up numbers and the header scroll-spy. */
 import { reducedMotion } from '../loader';
 
 const STAGGER_MS = 80;
 let observers: IntersectionObserver[] = [];
 
-/** Counts from 0 to `data-count`, keeping any prefix/suffix around the number. */
 function countUp(el: HTMLElement) {
   const target = Number(el.dataset.count);
   const template = el.dataset.template ?? '{n}';
@@ -21,7 +19,6 @@ function countUp(el: HTMLElement) {
 
 function initReveal() {
   const targets = new Set<HTMLElement>(document.querySelectorAll<HTMLElement>('[data-reveal]'));
-  // Children of a [data-stagger] container reveal one after another.
   document.querySelectorAll<HTMLElement>('[data-stagger]').forEach((group) => {
     Array.from(group.children).forEach((child, i) => {
       const el = child as HTMLElement;
@@ -49,7 +46,6 @@ function initReveal() {
   observers.push(observer);
 }
 
-/** Marks the header link of the section currently in view (home page only). */
 function initScrollSpy() {
   const sections = document.querySelectorAll<HTMLElement>('[data-section]');
   const links = document.querySelectorAll<HTMLElement>('[data-spy]');
@@ -65,7 +61,6 @@ function initScrollSpy() {
         });
       }
     },
-    // A thin band around the middle of the viewport decides the active section.
     { rootMargin: '-45% 0px -50% 0px' },
   );
   sections.forEach((section) => observer.observe(section));

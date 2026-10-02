@@ -6,14 +6,12 @@ import { localizedPath, type PageRoute } from '../../i18n/routes';
 export interface SeoProps {
   title: string;
   description: string;
-  /** Path or absolute URL of the social image. */
   image?: { url: string; width: number; height: number; alt?: string };
   noindex?: boolean;
 }
 
 interface Props extends SeoProps {
   lang: Lang;
-  /** When set, emits hreflang links to this page in every locale. */
   route?: PageRoute;
 }
 

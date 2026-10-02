@@ -2,12 +2,9 @@
 import Icon from './Icon.astro';
 
 interface Props {
-  /** Id of the section it titles; the heading itself gets `${id}-title`. */
   id: string;
-  /** Mono line above the title, e.g. "02 / experiencia". */
   kicker: string;
   title: string;
-  /** Optional link on the right ("View all"). */
   more?: { href: string; label: string };
 }
 const { id, kicker, title, more } = Astro.props;
